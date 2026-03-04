@@ -10,22 +10,22 @@ A curated digital institution dedicated to the most important books in human his
 
 ### Core
 
-| Layer | Technology | Rationale |
-|-------|------------|-----------|
+| Layer         | Technology              | Rationale                                                                                                                                     |
+| ------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Framework** | Next.js 15 (App Router) | React Server Components, streaming, built-in optimizations. App Router enables colocated layouts, loading states, and granular data fetching. |
-| **Language** | TypeScript 5 | End-to-end type safety from API to UI. Strict mode for catch-at-compile-time errors. |
-| **Runtime** | React 19 | Latest concurrent features, improved hydration, and performance. |
-| **Styling** | Tailwind CSS 3.4 | Utility-first, design tokens via CSS variables, dark/light theme support. No runtime CSS-in-JS overhead. |
-| **Bundler** | Turbopack (dev) | Native Rust-based bundler for sub-second HMR during development. |
+| **Language**  | TypeScript 5            | End-to-end type safety from API to UI. Strict mode for catch-at-compile-time errors.                                                          |
+| **Runtime**   | React 19                | Latest concurrent features, improved hydration, and performance.                                                                              |
+| **Styling**   | Tailwind CSS 3.4        | Utility-first, design tokens via CSS variables, dark/light theme support. No runtime CSS-in-JS overhead.                                      |
+| **Bundler**   | Turbopack (dev)         | Native Rust-based bundler for sub-second HMR during development.                                                                              |
 
 ### Data & Backend
 
-| Layer | Technology | Rationale |
-|-------|------------|-----------|
-| **Database** | Supabase (PostgreSQL) | Managed Postgres with real-time capabilities, RLS for security, and a generous free tier. |
-| **ORM / Client** | Supabase JS v2 | Type-safe client, automatic connection pooling, SSR-compatible. |
-| **Auth** | Supabase Auth | JWT-based auth, social providers, row-level security integration. |
-| **Storage** | Static assets in `public/` | Author images, favicon. CDN-ready for Vercel deployment. |
+| Layer            | Technology                 | Rationale                                                                                 |
+| ---------------- | -------------------------- | ----------------------------------------------------------------------------------------- |
+| **Database**     | Supabase (PostgreSQL)      | Managed Postgres with real-time capabilities, RLS for security, and a generous free tier. |
+| **ORM / Client** | Supabase JS v2             | Type-safe client, automatic connection pooling, SSR-compatible.                           |
+| **Auth**         | Supabase Auth              | JWT-based auth, social providers, row-level security integration.                         |
+| **Storage**      | Static assets in `public/` | Author images, favicon. CDN-ready for Vercel deployment.                                  |
 
 ### Architecture Decisions
 
@@ -97,54 +97,6 @@ A curated digital institution dedicated to the most important books in human his
 - Node.js 18+
 - npm or pnpm
 - Supabase account
-
-### Setup
-
-```bash
-# 1. Clone and install
-git clone <repo-url>
-cd the-human-canon
-npm install
-
-# 2. Environment
-cp .env.example .env.local
-# Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
-# For seeding: SUPABASE_SERVICE_ROLE_KEY
-
-# 3. Database
-# Run supabase/migrations/*.sql in Supabase SQL Editor (or via Supabase CLI)
-
-# 4. Seed content
-npm run seed
-
-# 5. Dev server (Turbopack)
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Supabase anon (public) key |
-| `SUPABASE_SERVICE_ROLE_KEY` | For seeding | Bypasses RLS; used by `npm run seed` |
-| `NEXT_PUBLIC_SITE_URL` | Optional | For sitemap; defaults to production URL |
-
----
-
-## Scripts
-
-| Command | Description |
-|---------|--------------|
-| `npm run dev` | Start dev server with Turbopack |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run lint` | ESLint |
-| `npm run seed` | Upsert books + authors to Supabase |
-
----
 
 ## Deployment
 
