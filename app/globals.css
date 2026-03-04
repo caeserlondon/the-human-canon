@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   THE HUMAN CANON — TOKENS
+   ========================= */
+
+:root {
+	/* IMDb-inspired: yellow + black */
+	--gold: 245 197 24; /* IMDb yellow #F5C518 */
+	--gold-2: 220 170 20; /* darker yellow (hover) */
+	--parchment: 245 197 24; /* use yellow for CTAs */
+
+	/* Radii — slightly tighter, IMDb-style */
+	--radius-lg: 4px;
+	--radius-xl: 6px;
+
+	/* Shadows */
+	--shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark theme (default) — IMDb black */
+:root,
+[data-theme='dark'] {
+	--bg: 20 20 20; /* near-black */
+	--bg-2: 28 28 28; /* slightly lifted */
+	--panel: 36 36 36; /* card base */
+	--panel-2: 44 44 44; /* header strip */
+	--text: 255 255 255; /* white */
+	--muted: 180 180 180; /* grey text */
+	--muted-2: 130 130 130; /* dimmer */
+	--nav-link: 220 220 220; /* brighter for nav/footer links */
+	--border: 60 60 60; /* subtle border */
+	--border-soft: 50 50 50; /* inner hairlines */
+}
+
+/* Light theme — Flexoki-inspired warm paper palette
+   Designed for reading comfort: off-white, soft borders, ink-like text */
+[data-theme='light'] {
+	--bg: 255 252 240; /* #FFFCF0 warm paper */
+	--bg-2: 242 240 229; /* #F2F0E5 lifted surface */
+	--panel: 253 252 248; /* #FDFCF8 card surface */
+	--panel-2: 250 248 245; /* #FAF8F5 header strip */
+	--text: 16 15 15; /* #100F0F ink black */
+	--muted: 87 86 83; /* #575653 secondary text */
+	--muted-2: 111 110 105; /* #6F6E69 dimmer */
+	--nav-link: 45 45 45; /* darker for nav/footer links */
+	--border: 230 228 217; /* #E6E4D9 soft border */
+	--border-soft: 218 216 206; /* #DAD8CE inner hairlines */
+	--shadow-soft: 0 1px 3px rgba(16, 15, 15, 0.06);
+}
+
+/* Nav/footer link color — more visible per theme */
+.nav-link {
+	color: rgb(var(--nav-link));
+}
+.nav-link:hover {
+	color: rgb(var(--text));
+}
+
+/* Base */
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background: rgb(var(--bg));
+	color: rgb(var(--text));
+}
+
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* IMDb-style: flat black background */
+.hc-bg {
+	position: relative;
+	background: rgb(var(--bg));
+}
+
+.hc-frame {
+	border: 1px solid rgb(var(--border));
+	border-radius: var(--radius-xl);
+	background: rgb(var(--panel));
+	box-shadow: var(--shadow-soft);
+}
+
+[data-theme='dark'] .hc-frame {
+	border-width: 3px;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 40%),
+		rgb(var(--panel));
+}
+
+.hc-frame--subtle {
+	border: 1px solid rgb(var(--border));
+	border-radius: var(--radius-xl);
+	background: rgb(var(--panel));
+}
+
+.hc-inset {
+	border: 1px solid rgb(var(--border-soft));
+	border-radius: var(--radius-lg);
+}
+
+.hc-strip {
+	border: 1px solid rgb(var(--border));
+	border-radius: var(--radius-xl);
+	background: rgb(var(--panel-2));
+}
+
+[data-theme='dark'] .hc-strip {
+	border-width: 3px;
+	background:
+		linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 55%),
+		rgb(var(--panel-2));
+}
+
+/* IMDb-style rating badge (yellow) */
+.hc-rating {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 6px 10px;
+	border-radius: 4px;
+	background: rgb(var(--gold));
+	color: rgb(0 0 0);
+	font-size: 14px;
+	font-weight: 700;
+}
+
+/* Tag / pill badge */
+.hc-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: 4px;
+	border: 1px solid rgb(var(--border));
+	background: rgb(var(--panel));
+	color: rgb(var(--text));
+	font-size: 12px;
+}
+
+/* IMDb-style card */
+.hc-card {
+	border: 1px solid rgb(var(--border));
+	border-radius: var(--radius-lg);
+	background: rgb(var(--panel));
+}
+
+/* Book & author grid cards — light theme: visible thin border */
+[data-theme='light'] .hc-card-grid {
+	border-color: rgb(var(--border));
+}
+
+/* Theme chip / tag */
+.hc-chip {
+	border-radius: 4px;
+	border: 1px solid rgb(var(--border));
+	background: rgb(var(--panel));
+}
+
+/* Hero overlay — dark mode only: semi-transparent black for text readability */
+.hero-overlay {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+[data-theme='dark'] .hero-overlay {
+	background: rgba(0, 0, 0, 0.45);
+}
+
+/* Hero text — light mode: darker text, no shadow for readability on image */
+[data-theme='light'] .hero-content h1 {
+	color: #000;
+}
+[data-theme='light'] .hero-content p {
+	color: #0a0a0a;
+}
+
+/* Hero subtitle — blur background for visibility in light and dark mode */
+.hero-subtitle {
+	display: inline-block;
+	padding: 0.5rem 0.75rem;
+	border-radius: 6px;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+[data-theme='dark'] .hero-subtitle {
+	background: rgba(0, 0, 0, 0.4);
+}
+[data-theme='light'] .hero-subtitle {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+/* Footer link — subtle move-down on hover (translate3d for GPU acceleration) */
+.footer-link {
+	display: inline-block;
+	transition: transform 0.3s ease;
+	transform: translate3d(0, 0, 0);
+	transform-style: preserve-3d;
+}
+.footer-link:hover {
+	transform: translate3d(0, 2px, 0);
+}
+
+/* Roll-up link — Webflow-style hover (two layers, translate3d + rotateX) */
+.roll-link {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	perspective: 500px;
+}
+
+.roll-wrap {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	height: 1.2em;
+	line-height: 1.2;
+}
+
+.roll-text,
+.roll-clone {
+	display: block;
+	transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.roll-clone {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+}
+
+.roll-link:hover .roll-text,
+.roll-link:focus-visible .roll-text,
+.roll-link:hover .roll-clone,
+.roll-link:focus-visible .roll-clone {
+	transform: translate3d(0, -100%, 0) rotateX(10deg);
+}
+
+/* prefers-reduced-motion: disable roll animation */
+@media (prefers-reduced-motion: reduce) {
+	.roll-text,
+	.roll-clone {
+		transition: none;
+	}
+	.roll-link:hover .roll-text,
+	.roll-link:focus-visible .roll-text,
+	.roll-link:hover .roll-clone,
+	.roll-link:focus-visible .roll-clone {
+		transform: none;
+	}
+}
