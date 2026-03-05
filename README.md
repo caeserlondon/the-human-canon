@@ -2,6 +2,10 @@
 
 > The greatest books ever written — distilled for modern life.
 
+| | |
+|:---:|:---:|
+| ![Landing page](assets/the-human-landing.png) | ![Books page](assets/the-human-books.png) |
+
 A curated digital institution dedicated to the most important books in human history. Across civilizations. Across centuries. Built as a content-first, SEO-optimized web application with a focus on performance, type safety, and maintainability.
 
 ---
