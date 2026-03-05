@@ -41,7 +41,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 						width={64}
 						height={58}
 						className='h-[57.6px] w-auto'
-						style={{ width: 'auto', height: 'auto' }}
+						style={{ width: 'auto', height: '57.6px' }}
 						priority
 					/>
 				</Link>
