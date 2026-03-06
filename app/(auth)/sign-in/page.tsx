@@ -98,12 +98,13 @@ function SignInForm() {
             <span className="bg-bg px-2 text-muted2">or</span>
           </div>
         </div>
-        <form onSubmit={handleSignIn} className="w-full space-y-4">
+        <form data-testid="sign-in-form" onSubmit={handleSignIn} className="w-full space-y-4">
           <div>
             <label htmlFor="email" className="mb-1 block text-sm font-medium text-muted">
               Email
             </label>
             <input
+              data-testid="sign-in-email"
               id="email"
               type="email"
               value={email}
@@ -118,6 +119,7 @@ function SignInForm() {
               Password
             </label>
             <input
+              data-testid="sign-in-password"
               id="password"
               type="password"
               value={password}
