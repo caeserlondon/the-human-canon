@@ -43,8 +43,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 var theme = localStorage.getItem('theme');
-                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                var initial = theme || (prefersDark ? 'dark' : 'light');
+                var initial = theme || 'dark';
                 document.documentElement.setAttribute('data-theme', initial);
               })();
             `,
