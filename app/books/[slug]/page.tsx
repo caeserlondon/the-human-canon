@@ -63,7 +63,7 @@ export default async function BookPage({ params }: BookPageProps) {
     <main className="hc-bg flex min-h-screen flex-col">
       <Header />
 
-      <article className="mx-auto max-w-5xl flex-1 px-4 py-10">
+      <article data-testid="book-detail" className="mx-auto max-w-5xl flex-1 px-4 py-10">
         <Link href="/books" className="text-sm text-muted hover:text-gold transition-colors">
           ← Back to Canon
         </Link>
