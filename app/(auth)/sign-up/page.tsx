@@ -155,7 +155,7 @@ export default function SignUpPage() {
         </form>
         <p className="mt-6 text-sm text-muted">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-gold hover:text-gold2 font-medium">
+          <Link href="/sign-in" className="text-gold hover:text-gold2 font-medium" data-testid="sign-up-sign-in-link">
             Sign in
           </Link>
         </p>
