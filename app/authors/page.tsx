@@ -58,7 +58,7 @@ export default async function AuthorsPage({ searchParams }: AuthorsPageProps) {
     <main className="hc-bg flex min-h-screen flex-col">
       <Header />
 
-      <section className="mx-auto max-w-7xl flex-1 px-4 py-10">
+      <section data-testid="authors-page" className="mx-auto max-w-7xl flex-1 px-4 py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-bold">Authors</h1>
@@ -82,7 +82,7 @@ export default async function AuthorsPage({ searchParams }: AuthorsPageProps) {
             <p className="text-muted">Author profiles are being added. Check back soon.</p>
           </div>
         ) : (
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+          <div data-testid="authors-grid" className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {authors.map((author) => (
               <Link
                 key={author.id}
