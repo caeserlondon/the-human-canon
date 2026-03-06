@@ -72,6 +72,7 @@ export default async function HomePage() {
               </p>
               <div className="mt-7">
                 <Link
+                  data-testid="hero-cta"
                   href="/books"
                   className="inline-block rounded bg-gold px-5 py-3 text-sm font-semibold text-black hover:bg-gold2 transition-colors"
                 >
@@ -84,7 +85,7 @@ export default async function HomePage() {
       </section>
 
       {/* Featured shelf — IMDb-style grid */}
-      <section className="mx-auto max-w-7xl px-4 py-10">
+      <section data-testid="popular-books" className="mx-auto max-w-7xl px-4 py-10">
         <h2 className="text-xl font-bold">Popular in the Canon</h2>
         <p className="mt-2 text-sm text-muted">
           A small rotating shelf for first-time visitors.
@@ -127,7 +128,7 @@ export default async function HomePage() {
       </section>
 
       {/* FAQ — accessible accordions per WAI-ARIA */}
-      <section className="mx-auto max-w-7xl px-4 py-10">
+      <section data-testid="faq-section" className="mx-auto max-w-7xl px-4 py-10">
         <h2 className="text-xl font-bold">FAQ</h2>
         <div className="mt-6">
           <FaqAccordion />
