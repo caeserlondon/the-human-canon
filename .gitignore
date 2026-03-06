@@ -36,3 +36,8 @@ next-env.d.ts
 # Seed data (local only; used for seeding Supabase, not committed)
 seed-data/
 scripts/seed.ts
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
