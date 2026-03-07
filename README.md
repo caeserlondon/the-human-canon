@@ -2,8 +2,10 @@
 
 > The greatest books ever written — distilled for modern life.
 
-| | |
-|:---:|:---:|
+**[Live app on Vercel - the-human-canon.vercel.app](https://the-human-canon.vercel.app/)**
+
+|                                               |                                           |
+| :-------------------------------------------: | :---------------------------------------: |
 | ![Landing page](assets/the-human-landing.png) | ![Books page](assets/the-human-books.png) |
 
 A curated digital institution dedicated to the most important books in human history. Across civilizations. Across centuries. Built as a content-first, SEO-optimized web application with a focus on performance, type safety, and maintainability.
@@ -94,11 +96,33 @@ A curated digital institution dedicated to the most important books in human his
 
 ---
 
+## E2E Testing (Playwright)
+
+Production-quality end-to-end tests cover home, books, authors, navigation, FAQ, and auth flows.
+
+```bash
+# Install browsers (first time only)
+npx playwright install
+
+# Run all E2E tests (builds app, starts server, runs tests)
+npm run test:e2e
+
+# Run with UI mode for debugging
+npm run test:e2e:ui
+
+# Run in headed mode (see browser)
+npm run test:e2e:headed
+```
+
+Tests run against Chromium, Firefox, and WebKit by default. Use `--project=chromium` to run only Chromium for faster feedback.
+
+---
+
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - npm or pnpm
 - Supabase account
 
