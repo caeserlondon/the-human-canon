@@ -27,6 +27,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 
 	return (
 		<header
+			data-testid="header"
 			className={`sticky top-0 z-20 ${
 				isTransparent
 					? 'bg-transparent border-none shadow-none'
@@ -47,7 +48,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 				</Link>
 
 				{/* Nav */}
-				<nav className='flex flex-1 flex-wrap items-center gap-4 text-sm'>
+				<nav data-testid="nav" className='flex flex-1 flex-wrap items-center gap-4 text-sm'>
 					<RollLink href='/' className='nav-link transition-colors'>
 						Home
 					</RollLink>
@@ -62,6 +63,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 					<form onSubmit={handleSearch} className='max-w-xs'>
 						<div className='relative'>
 							<input
+								data-testid="search-input"
 								type='search'
 								placeholder='Search...'
 								value={query}
