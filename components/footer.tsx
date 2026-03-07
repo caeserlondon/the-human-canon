@@ -2,7 +2,7 @@ import { RollLink } from "@/components/roll-link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-bg2">
+    <footer data-testid="footer" className="border-t border-border bg-bg2">
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="font-serif text-sm text-muted">
