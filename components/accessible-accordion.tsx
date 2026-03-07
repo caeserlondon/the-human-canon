@@ -19,7 +19,7 @@ export function AccordionItem({
   const buttonId = `accordion-button-${id}`;
 
   return (
-    <div className="hc-card overflow-hidden">
+    <div data-testid="accordion-item" className="hc-card overflow-hidden">
       <button
         id={buttonId}
         type="button"
