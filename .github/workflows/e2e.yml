@@ -9,6 +9,7 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
@@ -17,23 +18,32 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
-      - name: Debug environment
+      - name: Show versions
         run: |
-          echo "PWD:"
-          pwd
-          echo "FILES:"
-          ls -la
-          echo "NODE:"
           node -v
-          echo "NPM:"
           npm -v
-          echo "LOCKFILES:"
-          find . -maxdepth 2 \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" \)
-          echo "PICOMATCH IN LOCKFILE:"
-          grep -n "picomatch" package-lock.json || true
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run E2E tests
+        run: npx playwright test --project=chromium
+        env:
+          CI: true
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+          if-no-files-found: ignore
