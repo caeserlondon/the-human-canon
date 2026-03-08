@@ -63,7 +63,7 @@ test.describe('Navigation', () => {
 	test('search submits and navigates to books with query', async ({ page }) => {
 		await page.goto('/')
 		await page.getByTestId('search-input').fill('aristotle')
-		await page.getByRole('button', { name: /search/i }).click()
+		await page.getByTestId('search-input').press('Enter')
 		await expect(page).toHaveURL(/\/books\?q=aristotle/)
 	})
 })
