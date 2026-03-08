@@ -5,6 +5,7 @@ on:
     branches: [main]
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   e2e:
@@ -19,12 +20,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+          # remove cache while debugging
+          # cache: "npm"
 
-      - name: Show versions
+      - name: Debug runner state
         run: |
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "PWD=$(pwd)"
+          echo "FILES:"
+          ls -la
+          echo "NODE:"
           node -v
+          echo "NPM:"
           npm -v
+          echo "PACKAGE FILES:"
+          find . -maxdepth 2 \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" \)
+          echo "PICOMATCH IN package-lock.json:"
+          grep -n '"picomatch"' package-lock.json | head -20 || true
 
       - name: Install dependencies
         run: npm ci

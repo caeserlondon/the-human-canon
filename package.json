@@ -1,8 +1,7 @@
 {
 	"name": "the-human-canon",
 	"version": "0.1.0",
-	"private": false,
-	"packageManager": "npm@10.9.4",
+	"private": true,
 	"engines": {
 		"node": "22.x"
 	},
