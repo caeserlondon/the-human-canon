@@ -1,70 +1,91 @@
-"use server";
+'use server'
 
-import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { createClient } from '@/lib/supabase/server'
+import { revalidatePath } from 'next/cache'
 
-export async function toggleFavorite(bookSlug: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: "Not signed in" };
+type ToggleTable = 'favorites' | 'read_status' | 'wishlist'
 
-  const { data: existing } = await supabase
-    .from("favorites")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("book_slug", bookSlug)
-    .single();
+type ToggleResult = { success: true; active: boolean } | { error: string }
 
-  if (existing) {
-    await supabase.from("favorites").delete().eq("id", existing.id);
-  } else {
-    await supabase.from("favorites").insert({ user_id: user.id, book_slug: bookSlug });
-  }
-  revalidatePath(`/books/${bookSlug}`);
-  revalidatePath("/");
-  return {};
+const TABLE_LABELS: Record<ToggleTable, string> = {
+	favorites: 'favorites',
+	read_status: 'read status',
+	wishlist: 'wishlist',
 }
 
-export async function toggleRead(bookSlug: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: "Not signed in" };
+async function toggleBookState(
+	table: ToggleTable,
+	bookSlug: string,
+): Promise<ToggleResult> {
+	const slug = bookSlug.trim()
 
-  const { data: existing } = await supabase
-    .from("read_status")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("book_slug", bookSlug)
-    .single();
+	if (!slug) {
+		return { error: 'Invalid book slug' }
+	}
 
-  if (existing) {
-    await supabase.from("read_status").delete().eq("id", existing.id);
-  } else {
-    await supabase.from("read_status").insert({ user_id: user.id, book_slug: bookSlug });
-  }
-  revalidatePath(`/books/${bookSlug}`);
-  revalidatePath("/");
-  return {};
+	const supabase = await createClient()
+
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser()
+
+	if (userError || !user) {
+		return { error: 'Not signed in' }
+	}
+
+	const { data: existing, error: selectError } = await supabase
+		.from(table)
+		.select('id')
+		.eq('user_id', user.id)
+		.eq('book_slug', slug)
+		.maybeSingle()
+
+	if (selectError) {
+		return { error: `Failed to check ${TABLE_LABELS[table]}` }
+	}
+
+	if (existing) {
+		const { error: deleteError } = await supabase
+			.from(table)
+			.delete()
+			.eq('id', existing.id)
+
+		if (deleteError) {
+			return { error: `Failed to remove from ${TABLE_LABELS[table]}` }
+		}
+
+		revalidatePath('/')
+		revalidatePath('/books')
+		revalidatePath(`/books/${slug}`)
+
+		return { success: true, active: false }
+	}
+
+	const { error: insertError } = await supabase.from(table).insert({
+		user_id: user.id,
+		book_slug: slug,
+	})
+
+	if (insertError) {
+		return { error: `Failed to add to ${TABLE_LABELS[table]}` }
+	}
+
+	revalidatePath('/')
+	revalidatePath('/books')
+	revalidatePath(`/books/${slug}`)
+
+	return { success: true, active: true }
 }
 
-export async function toggleWishlist(bookSlug: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: "Not signed in" };
+export async function toggleFavorite(bookSlug: string): Promise<ToggleResult> {
+	return toggleBookState('favorites', bookSlug)
+}
 
-  const { data: existing } = await supabase
-    .from("wishlist")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("book_slug", bookSlug)
-    .single();
+export async function toggleRead(bookSlug: string): Promise<ToggleResult> {
+	return toggleBookState('read_status', bookSlug)
+}
 
-  if (existing) {
-    await supabase.from("wishlist").delete().eq("id", existing.id);
-  } else {
-    await supabase.from("wishlist").insert({ user_id: user.id, book_slug: bookSlug });
-  }
-  revalidatePath(`/books/${bookSlug}`);
-  revalidatePath("/");
-  return {};
+export async function toggleWishlist(bookSlug: string): Promise<ToggleResult> {
+	return toggleBookState('wishlist', bookSlug)
 }

@@ -2,86 +2,103 @@
 
 > The greatest books ever written — distilled for modern life.
 
-**[Live app on Vercel - the-human-canon.vercel.app](https://the-human-canon.vercel.app/)**
+**Live:** [the-human-canon.vercel.app](https://the-human-canon.vercel.app/)
 
-|                                               |                                           |
-| :-------------------------------------------: | :---------------------------------------: |
-| ![Landing page](assets/the-human-landing.png) | ![Books page](assets/the-human-books.png) |
+<p align="center">
+  <img src="assets/the-human-landing.png" alt="The Human Canon landing page" width="49%" />
+  <img src="assets/the-human-books.png" alt="The Human Canon books page" width="49%" />
+</p>
 
-A curated digital institution dedicated to the most important books in human history. Across civilizations. Across centuries. Built as a content-first, SEO-optimized web application with a focus on performance, type safety, and maintainability.
+The Human Canon is a content-first digital library for timeless books, authors, and ideas. It is built with a modern React and Next.js stack, backed by Supabase, and designed for durability: strong typing, accessible UI, SEO-aware architecture, a maintainable codebase, and comprehensive end-to-end testing with Playwright.
+
+---
+
+## Overview
+
+The project delivers a curated library of influential works through a modern web application focused on:
+
+- clear content architecture
+- strong type safety
+- accessible, semantic interfaces
+- static-first performance
+- maintainable data and content pipelines
+- production-ready deployment on Vercel
+
+Books and authors are modeled as structured content, allowing the app to generate browse pages, detail pages, metadata, sitemap entries, and related content from a consistent source of truth.
+
+---
+
+## Core Capabilities
+
+- **Canon library** with rich book pages, summaries, key ideas, quotes, and relevance
+- **Author profiles** with biographies, context, and related works
+- **Authenticated book actions** including favorites, read status, and wishlist
+- **Dynamic metadata and sitemap generation** for SEO
+- **Dark and light themes** using CSS variables and a token-driven design system
+- **Responsive layouts** for mobile, tablet, and desktop
+- **End-to-end testing** across Chromium, Firefox, and WebKit
+- **Seeded content pipeline** for repeatable data population in Supabase
 
 ---
 
 ## Technology Stack
 
-### Core
+### Frontend
 
-| Layer         | Technology              | Rationale                                                                                                                                     |
-| ------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Framework** | Next.js 15 (App Router) | React Server Components, streaming, built-in optimizations. App Router enables colocated layouts, loading states, and granular data fetching. |
-| **Language**  | TypeScript 5            | End-to-end type safety from API to UI. Strict mode for catch-at-compile-time errors.                                                          |
-| **Runtime**   | React 19                | Latest concurrent features, improved hydration, and performance.                                                                              |
-| **Styling**   | Tailwind CSS 3.4        | Utility-first, design tokens via CSS variables, dark/light theme support. No runtime CSS-in-JS overhead.                                      |
-| **Bundler**   | Turbopack (dev)         | Native Rust-based bundler for sub-second HMR during development.                                                                              |
+- **Next.js 15** with the App Router
+- **React 19**
+- **TypeScript 5**
+- **Tailwind CSS**
+- **Lucide React**
 
-### Data & Backend
+### Backend and Data
 
-| Layer            | Technology                 | Rationale                                                                                 |
-| ---------------- | -------------------------- | ----------------------------------------------------------------------------------------- |
-| **Database**     | Supabase (PostgreSQL)      | Managed Postgres with real-time capabilities, RLS for security, and a generous free tier. |
-| **ORM / Client** | Supabase JS v2             | Type-safe client, automatic connection pooling, SSR-compatible.                           |
-| **Auth**         | Supabase Auth              | JWT-based auth, social providers, row-level security integration.                         |
-| **Storage**      | Static assets in `public/` | Author images, favicon. CDN-ready for Vercel deployment.                                  |
+- **Supabase PostgreSQL**
+- **Supabase Auth**
+- **Supabase JS v2**
 
-### Architecture Decisions
+### Tooling
 
-- **JSONB for content**: Books and authors are stored as JSONB documents. Schema evolution without migrations; rich nested structures (key ideas, quotes, related books) without joins. Indexed on `slug` and `status` for fast lookups.
-- **Dual Supabase clients**: Server-side canon data uses anon key (no cookies) for static generation and edge caching. User-specific data (favorites, wishlist) uses cookie-based client for authenticated requests.
-- **Static generation by default**: All book and author pages use `generateStaticParams` for build-time pre-rendering. Sitemap and metadata generated from the same data layer.
-- **Seed script with service role**: Idempotent upserts for content. Service role bypasses RLS for seeding; anon key enforces read-only public access at runtime.
+- **Playwright** for E2E testing
+- **ESLint**
+- **tsx** for seed scripts
+- **Vercel** for deployment
 
 ---
 
-## Project Structure
+## Architecture
 
-```
-├── app/                    # Next.js App Router
-│   ├── layout.tsx          # Root layout, Google Fonts (Libre Baskerville, Source Sans 3), theme script
-│   ├── page.tsx            # Homepage with hero, featured shelf, themes, FAQ
-│   ├── books/              # Canon browse + dynamic book pages
-│   ├── authors/            # Author index + dynamic author profiles
-│   ├── themes/             # Theme browse + dynamic theme pages
-│   ├── (auth)/             # Route group: sign-in, sign-up
-│   ├── sitemap.ts          # Dynamic sitemap from books + authors
-│   └── globals.css         # Design tokens, theme variables, utility classes
-│
-├── components/             # Reusable UI
-│   ├── header.tsx
-│   ├── footer.tsx
-│   ├── book-cover.tsx      # Graceful fallback (initials) when image fails
-│   ├── author-image.tsx    # Same pattern for author avatars
-│   ├── book-actions.tsx    # Favorite, read, wishlist (client)
-│   ├── book-page-content.tsx
-│   ├── faq-accordion.tsx   # Accessible accordion (WAI-ARIA)
-│   └── accessible-accordion.tsx
-│
-├── lib/                    # Business logic & data access
-│   ├── books/              # getAllBooks, getBookBySlug, getRelatedBooks
-│   ├── authors/            # getAllAuthors, getAuthorBySlug, image-path mapping
-│   ├── supabase/           # Server + browser clients, queries
-│   └── actions/            # Server actions for book actions
-│
-├── seed-data/              # Source of truth (excluded from build)
-│   ├── books.ts            # CanonBook[] — 40+ titles
-│   └── authors.ts          # CanonAuthor[] — full bios, key facts, legacy
-│
-├── scripts/
-│   └── seed.ts             # tsx script: upsert books + authors to Supabase
-│
-└── supabase/migrations/    # SQL migrations
-    ├── 001_user_book_actions.sql   # favorites, read_status, wishlist + RLS
-    └── 002_canon_books_authors.sql # canon_books, canon_authors + RLS
-```
+### 1. Static-first rendering
+
+Book and author pages are generated ahead of time wherever possible.  
+This keeps public content fast, indexable, and deployment-friendly, while still allowing authenticated user state to be layered in where required.
+
+### 2. Structured content model
+
+Books and authors are stored as structured records rather than raw CMS blobs.  
+This makes it possible to reuse the same content across:
+
+- page rendering
+- metadata generation
+- related content sections
+- sitemap generation
+- internal linking
+
+### 3. Supabase as the content and auth layer
+
+The application uses Supabase for:
+
+- canon content storage
+- authentication
+- user-specific book actions
+- row-level security
+
+Public canon content is readable via safe public access rules, while user actions are protected through RLS policies scoped to the authenticated user.
+
+### 4. Seed-driven workflow
+
+A seed script populates the canon data into Supabase using idempotent upserts.  
+This keeps the content pipeline reproducible and avoids manual database editing.
 
 ---
 
@@ -95,6 +112,10 @@ A curated digital institution dedicated to the most important books in human his
 - **Type safety**: Shared `CanonBook` and `CanonAuthor` types across seed data, lib, and components.
 
 ---
+
+|                                                 |                                              |
+| :---------------------------------------------: | :------------------------------------------: |
+| ![Playwrite roprt](assets/playwrite-report.png) | ![Playwrite test](assets/playwrite-test.png) |
 
 ## E2E Testing (Playwright)
 

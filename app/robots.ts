@@ -1,14 +1,14 @@
-import { MetadataRoute } from "next";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://thehumancanon.com";
+import type { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/admin/"],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
-  };
+	const baseUrl = 'https://the-human-canon.vercel.app'
+
+	return {
+		rules: {
+			userAgent: '*',
+			allow: '/',
+			disallow: ['/api/', '/admin/'],
+		},
+		sitemap: `${baseUrl}/sitemap.xml`,
+	}
 }
