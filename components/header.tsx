@@ -1,5 +1,6 @@
 'use client'
 
+import logo from '@/public/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -7,7 +8,6 @@ import { useState } from 'react'
 import { AuthNav } from './auth-nav'
 import { RollLink } from './roll-link'
 import { ThemeToggle } from './theme-toggle'
-
 interface HeaderProps {
 	variant?: 'default' | 'transparent'
 }
@@ -27,7 +27,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 
 	return (
 		<header
-			data-testid="header"
+			data-testid='header'
 			className={`sticky top-0 z-20 ${
 				isTransparent
 					? 'bg-transparent border-none shadow-none'
@@ -37,18 +37,20 @@ export function Header({ variant = 'default' }: HeaderProps) {
 			<div className='mx-auto flex max-w-7xl items-center gap-6 px-4 py-3'>
 				<Link href='/' className='shrink-0 flex items-center'>
 					<Image
-						src='/logo.png'
+						src={logo}
 						alt='The Human Canon'
-						width={64}
+						width={62}
 						height={58}
-						className='h-[57.6px] w-auto'
-						style={{ width: 'auto', height: '57.6px' }}
+						className='h-[58px] w-auto'
 						priority
 					/>
 				</Link>
 
 				{/* Nav */}
-				<nav data-testid="nav" className='flex flex-1 flex-wrap items-center gap-4 text-sm'>
+				<nav
+					data-testid='nav'
+					className='flex flex-1 flex-wrap items-center gap-4 text-sm'
+				>
 					<RollLink href='/' className='nav-link transition-colors'>
 						Home
 					</RollLink>
@@ -63,7 +65,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
 					<form onSubmit={handleSearch} className='max-w-xs'>
 						<div className='relative'>
 							<input
-								data-testid="search-input"
+								data-testid='search-input'
 								type='search'
 								placeholder='Search...'
 								value={query}
@@ -98,7 +100,10 @@ export function Header({ variant = 'default' }: HeaderProps) {
 					<RollLink href='/contact' className='nav-link transition-colors'>
 						Contact
 					</RollLink>
-					<RollLink href='/public-domain' className='nav-link transition-colors'>
+					<RollLink
+						href='/public-domain'
+						className='nav-link transition-colors'
+					>
 						Public Domain
 					</RollLink>
 					<AuthNav />

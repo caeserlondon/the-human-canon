@@ -102,6 +102,12 @@ This keeps the content pipeline reproducible and avoids manual database editing.
 
 ---
 
+#### Used Wikimedia Commons to verify the copyrights
+
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)
+
+---
+
 ## Key Features
 
 - **Content-first design**: Rich book summaries, key ideas, notable quotes, and “why it matters today” sections. Author bios with early life, philosophy, legacy.

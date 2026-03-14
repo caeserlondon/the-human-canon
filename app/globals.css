@@ -29,7 +29,7 @@
 	--panel-2: 44 44 44; /* header strip */
 	--text: 255 255 255; /* white */
 	--muted: 180 180 180; /* grey text */
-	--muted-2: 130 130 130; /* dimmer */
+	--muted-2: 155 155 155; /* dimmer */
 	--nav-link: 220 220 220; /* brighter for nav/footer links */
 	--border: 60 60 60; /* subtle border */
 	--border-soft: 50 50 50; /* inner hairlines */
@@ -44,7 +44,7 @@
 	--panel-2: 250 248 245; /* #FAF8F5 header strip */
 	--text: 16 15 15; /* #100F0F ink black */
 	--muted: 87 86 83; /* #575653 secondary text */
-	--muted-2: 111 110 105; /* #6F6E69 dimmer */
+	--muted-2: 103 102 97; /* #6F6E69 dimmer */
 	--nav-link: 45 45 45; /* darker for nav/footer links */
 	--border: 230 228 217; /* #E6E4D9 soft border */
 	--border-soft: 218 216 206; /* #DAD8CE inner hairlines */
