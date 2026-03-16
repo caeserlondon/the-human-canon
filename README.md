@@ -15,6 +15,11 @@ The Human Canon is a content-first digital library for timeless books, authors, 
 
 ## Overview
 
+<p align="center">
+  <img src="assets/gtmatrix.png" alt="GTmetrix performance report" width="49%" />
+  <img src="assets/speed.png" alt="Google PageSpeed Insights report" width="49%" />
+</p>
+
 The project delivers a curated library of influential works through a modern web application focused on:
 
 - clear content architecture
@@ -23,6 +28,8 @@ The project delivers a curated library of influential works through a modern web
 - static-first performance
 - maintainable data and content pipelines
 - production-ready deployment on Vercel
+
+It also achieved **100% performance scores** in testing, with **green Core Web Vitals throughout**, supported by strong results in **PageSpeed Insights** and **GTmetrix**.
 
 Books and authors are modeled as structured content, allowing the app to generate browse pages, detail pages, metadata, sitemap entries, and related content from a consistent source of truth.
 
