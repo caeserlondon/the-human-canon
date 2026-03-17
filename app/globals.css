@@ -23,32 +23,54 @@
 /* Dark theme (default) — IMDb black */
 :root,
 [data-theme='dark'] {
-	--bg: 20 20 20; /* near-black */
-	--bg-2: 28 28 28; /* slightly lifted */
-	--panel: 36 36 36; /* card base */
-	--panel-2: 44 44 44; /* header strip */
-	--text: 255 255 255; /* white */
-	--muted: 180 180 180; /* grey text */
-	--muted-2: 155 155 155; /* dimmer */
-	--nav-link: 220 220 220; /* brighter for nav/footer links */
-	--border: 60 60 60; /* subtle border */
-	--border-soft: 50 50 50; /* inner hairlines */
+	--bg: 20 20 20;
+	--bg-2: 28 28 28;
+	--panel: 36 36 36;
+	--panel-2: 44 44 44;
+	--text: 255 255 255;
+	--muted: 180 180 180;
+	--muted-2: 155 155 155;
+
+	/* stronger nav contrast */
+	--nav-link: 245 245 245;
+	--nav-link-hover: 255 255 255;
+	--nav-icon: 245 245 245;
+
+	--border: 60 60 60;
+	--border-soft: 50 50 50;
 }
 
-/* Light theme — Flexoki-inspired warm paper palette
-   Designed for reading comfort: off-white, soft borders, ink-like text */
+/* Light theme — Flexoki-inspired warm paper palette */
 [data-theme='light'] {
-	--bg: 255 252 240; /* #FFFCF0 warm paper */
-	--bg-2: 242 240 229; /* #F2F0E5 lifted surface */
-	--panel: 253 252 248; /* #FDFCF8 card surface */
-	--panel-2: 250 248 245; /* #FAF8F5 header strip */
-	--text: 16 15 15; /* #100F0F ink black */
-	--muted: 87 86 83; /* #575653 secondary text */
-	--muted-2: 103 102 97; /* #6F6E69 dimmer */
-	--nav-link: 45 45 45; /* darker for nav/footer links */
-	--border: 230 228 217; /* #E6E4D9 soft border */
-	--border-soft: 218 216 206; /* #DAD8CE inner hairlines */
+	--bg: 255 252 240;
+	--bg-2: 242 240 229;
+	--panel: 253 252 248;
+	--panel-2: 250 248 245;
+	--text: 16 15 15;
+	--muted: 87 86 83;
+	--muted-2: 103 102 97;
+
+	/* darker nav for readability */
+	--nav-link: 20 20 20;
+	--nav-link-hover: 0 0 0;
+	--nav-icon: 20 20 20;
+
+	--border: 230 228 217;
+	--border-soft: 218 216 206;
 	--shadow-soft: 0 1px 3px rgba(16, 15, 15, 0.06);
+}
+
+:root,
+[data-theme='dark'] {
+	--nav-link: 245 245 245;
+	--nav-link-hover: 255 255 255;
+	--nav-icon: 245 245 245;
+}
+
+[data-theme='light'] {
+	--nav-link: 20 20 20;
+	--nav-link-hover: 0 0 0;
+	--nav-icon: 20 20 20;
 }
 
 /* Nav/footer link color — more visible per theme */
