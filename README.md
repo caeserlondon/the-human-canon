@@ -2,6 +2,8 @@
 
 > The greatest books ever written — distilled for modern life.
 
+The Human Canon is a content-first digital library for timeless books, authors, and ideas. It is built with a modern React and Next.js stack, backed by Supabase, and designed for durability: strong typing, accessible UI, SEO-aware architecture, a maintainable codebase, and comprehensive end-to-end testing with Playwright.
+
 **Live:** [the-human-canon.vercel.app](https://the-human-canon.vercel.app/)
 
 <p align="center">
@@ -9,16 +11,31 @@
   <img src="assets/the-human-books.png" alt="The Human Canon books page" width="49%" />
 </p>
 
-The Human Canon is a content-first digital library for timeless books, authors, and ideas. It is built with a modern React and Next.js stack, backed by Supabase, and designed for durability: strong typing, accessible UI, SEO-aware architecture, a maintainable codebase, and comprehensive end-to-end testing with Playwright.
-
 ---
 
-## Overview
+## Core Web Vitals metrics
+
+Achieved **100% performance scores** in testing, with **green 100% Core Web Vitals throughout**, supported by strong results in **PageSpeed Insights** and **GTmetrix**.
 
 <p align="center">
   <img src="assets/gtmatrix.png" alt="GTmetrix performance report" width="49%" />
   <img src="assets/speed.png" alt="Google PageSpeed Insights report" width="49%" />
 </p>
+
+---
+
+## E2E Testing (Playwright)
+
+Production-quality end-to-end tests cover home, books, authors, navigation, FAQ, and auth flows.
+
+<p align="center">
+  <img src="assets/playwrite-report.png" alt="playwrite-report" width="49%" />
+  <img src="assets/playwrite-test.png" alt="playwrite-test" width="49%" />
+</p>
+
+---
+
+## Overview
 
 The project delivers a curated library of influential works through a modern web application focused on:
 
@@ -28,8 +45,6 @@ The project delivers a curated library of influential works through a modern web
 - static-first performance
 - maintainable data and content pipelines
 - production-ready deployment on Vercel
-
-It also achieved **100% performance scores** in testing, with **green Core Web Vitals throughout**, supported by strong results in **PageSpeed Insights** and **GTmetrix**.
 
 Books and authors are modeled as structured content, allowing the app to generate browse pages, detail pages, metadata, sitemap entries, and related content from a consistent source of truth.
 
@@ -125,10 +140,6 @@ This keeps the content pipeline reproducible and avoids manual database editing.
 - **Type safety**: Shared `CanonBook` and `CanonAuthor` types across seed data, lib, and components.
 
 ---
-
-|                                                 |                                              |
-| :---------------------------------------------: | :------------------------------------------: |
-| ![Playwrite roprt](assets/playwrite-report.png) | ![Playwrite test](assets/playwrite-test.png) |
 
 ## E2E Testing (Playwright)
 
