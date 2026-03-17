@@ -48,7 +48,6 @@ export default async function HomePage() {
 						height={1425}
 						className='block h-auto w-full'
 						sizes='(max-width: 1333px) 100vw, 1333px'
-						loading='eager'
 						fetchPriority='high'
 					/>
 
