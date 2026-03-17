@@ -49,15 +49,24 @@ export function Header({ variant = 'default' }: HeaderProps) {
 				{/* Nav */}
 				<nav
 					data-testid='nav'
-					className='flex flex-1 flex-wrap items-center gap-4 text-sm'
+					className='flex flex-1 flex-wrap items-center gap-4 text-sm text-[rgb(var(--nav-link))]'
 				>
-					<RollLink href='/' className='nav-link transition-colors'>
+					<RollLink
+						href='/'
+						className='nav-link text-[rgb(var(--nav-link))] transition-colors hover:text-[rgb(var(--nav-link-hover))]'
+					>
 						Home
 					</RollLink>
-					<RollLink href='/books' className='nav-link transition-colors'>
+					<RollLink
+						href='/books'
+						className='nav-link text-[rgb(var(--nav-link))] transition-colors hover:text-[rgb(var(--nav-link-hover))]'
+					>
 						Books
 					</RollLink>
-					<RollLink href='/authors' className='nav-link transition-colors'>
+					<RollLink
+						href='/authors'
+						className='nav-link text-[rgb(var(--nav-link))] transition-colors hover:text-[rgb(var(--nav-link-hover))]'
+					>
 						Authors
 					</RollLink>
 
