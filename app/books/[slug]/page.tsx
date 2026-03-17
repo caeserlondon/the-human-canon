@@ -36,7 +36,11 @@ export async function generateMetadata({
 }: BookPageProps): Promise<Metadata> {
 	const { slug } = await params
 	const book = await getBookBySlug(slug)
-	if (!book) return { title: 'Not Found' }
+
+	if (!book) {
+		return { title: 'Not Found' }
+	}
+
 	return {
 		title: book.seo.title,
 		description: book.seo.description,
@@ -47,16 +51,19 @@ export async function generateMetadata({
 export default async function BookPage({ params }: BookPageProps) {
 	const { slug } = await params
 	const book = await getBookBySlug(slug)
+
 	if (!book) notFound()
 
 	const related = await getRelatedBooks(book.relatedBooks)
 	const author = await getAuthorBySlug(authorNameToSlug(book.author))
+
 	let bookActions = {
 		favorite: false,
 		read: false,
 		wishlist: false,
 		isSignedIn: false,
 	}
+
 	try {
 		bookActions = await getUserBookActions(slug)
 	} catch {
@@ -78,27 +85,25 @@ export default async function BookPage({ params }: BookPageProps) {
 			>
 				<Link
 					href='/books'
-					className='text-sm text-muted hover:text-gold transition-colors'
+					className='text-sm text-muted transition-colors hover:text-gold'
 				>
 					← Back to Canon
 				</Link>
 
-				{/* Book header — same style as author page */}
 				<div className='mt-6 flex flex-col gap-6 sm:flex-row sm:items-start'>
-					{/* Author photo — square with rounded corners, from public/authors */}
 					<div className='shrink-0'>
 						{author ? (
 							<Link
 								href={`/authors/${author.slug}`}
-								className='block hover:opacity-90 transition-opacity'
+								className='block transition-opacity hover:opacity-90'
 							>
 								<AuthorImage
-									src={author.image ?? authorSlugToImagePath(author.slug)}
+									src={authorSlugToImagePath(author.slug)}
 									alt={book.author}
 									name={book.author}
-									width={26}
-									height={26}
-									className='rounded-full object-cover ring-1 ring-panel2'
+									width={160}
+									height={200}
+									className='rounded-lg object-cover ring-1 ring-panel2'
 								/>
 							</Link>
 						) : (
@@ -106,49 +111,56 @@ export default async function BookPage({ params }: BookPageProps) {
 								src={authorSlugToImagePath(authorNameToSlug(book.author))}
 								alt={book.author}
 								name={book.author}
-								width={26}
-								height={26}
-								className='rounded-full object-cover ring-1 ring-panel2'
+								width={160}
+								height={200}
+								className='rounded-lg object-cover ring-1 ring-panel2'
 							/>
 						)}
 					</div>
 
-					<div className='flex-1 min-w-0'>
+					<div className='min-w-0 flex-1'>
 						<h1 className='text-2xl font-bold md:text-3xl'>{book.title}</h1>
+
 						{book.originalTitle && (
 							<p className='mt-1 text-sm text-muted2'>{book.originalTitle}</p>
 						)}
+
 						<div className='mt-2 flex flex-wrap gap-2 text-sm text-muted2'>
 							{author ? (
 								<Link
 									href={`/authors/${author.slug}`}
-									className='hover:text-gold transition-colors'
+									className='transition-colors hover:text-gold'
 								>
 									{book.author}
 								</Link>
 							) : (
 								<span>{book.author}</span>
 							)}
+
 							<span>·</span>
 							<span>{book.civilization}</span>
+
 							{book.countryOfOrigin && (
 								<>
 									<span>·</span>
 									<span>{book.countryOfOrigin}</span>
 								</>
 							)}
+
 							<span>·</span>
 							<span>{book.era}</span>
 							<span>·</span>
 							<span>{yearDisplay}</span>
 							<span>·</span>
 							<span>{book.language}</span>
+
 							{book.difficulty && (
 								<>
 									<span>·</span>
 									<span>{book.difficulty}</span>
 								</>
 							)}
+
 							{book.readingTimeMinutes > 0 && (
 								<>
 									<span>·</span>
@@ -159,6 +171,7 @@ export default async function BookPage({ params }: BookPageProps) {
 									</span>
 								</>
 							)}
+
 							{book.summaryReadingTimeMinutes > 0 && (
 								<>
 									<span>·</span>
@@ -166,6 +179,7 @@ export default async function BookPage({ params }: BookPageProps) {
 								</>
 							)}
 						</div>
+
 						<div className='mt-4'>
 							<BookActions
 								bookSlug={slug}
@@ -175,6 +189,7 @@ export default async function BookPage({ params }: BookPageProps) {
 								isSignedIn={bookActions.isSignedIn}
 							/>
 						</div>
+
 						<p className='mt-4 max-w-[65ch] leading-relaxed text-muted'>
 							{book.shortDescription}
 						</p>
